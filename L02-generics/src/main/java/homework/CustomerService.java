@@ -9,7 +9,7 @@ import java.util.TreeMap;
 import static java.util.Objects.isNull;
 
 public class CustomerService {
-    NavigableMap<Customer, String> map = new TreeMap<>(Comparator.comparingLong(Customer::getScores));
+    private final NavigableMap<Customer, String> map = new TreeMap<>(Comparator.comparingLong(Customer::getScores));
 
     public Map.Entry<Customer, String> getSmallest() {
         return getCopy(map.firstEntry());
