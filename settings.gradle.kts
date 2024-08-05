@@ -1,6 +1,7 @@
 rootProject.name = "otusJava"
 include("L01-gradle")
 include("L02-generics")
+include("L03-annotations")
 
 pluginManagement {
     val jgitver: String by settings
