@@ -1,24 +1,29 @@
 package homework;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AnnotationTest {
+    private static final Logger logger = LoggerFactory.getLogger(TestRunner.class);
+
     @Before
     public void init() {
-        System.out.println("before method");
+        logger.info("before method");
     }
 
     @Test
     public void firstTest() {
-        System.out.println("first test");
+        logger.info("first test");
     }
 
     @Test
     public void secondTest() {
-        System.out.println("second test");
+        logger.info("second test");
         throw new IllegalArgumentException();
     }
 
     @After
     public void end() {
-        System.out.println("after method");
+        logger.info("after method");
     }
 }

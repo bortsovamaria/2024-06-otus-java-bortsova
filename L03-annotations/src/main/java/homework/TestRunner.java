@@ -1,13 +1,20 @@
 package homework;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Slf4j
 public class TestRunner {
+    private static final Logger logger = LoggerFactory.getLogger(TestRunner.class);
+
     public static void main(String[] args) {
         runTests("homework.AnnotationTest");
     }
@@ -39,8 +46,8 @@ public class TestRunner {
             }
         }
 
-        System.out.println("Success tests: " + successTests);
-        System.out.println("Failed tests: " + failedTests);
+        logger.info("Success tests: {}", successTests);
+        logger.info("Failed tests: {}", failedTests);
     }
 
     private static List<Method> getMethodsByAnnotation(Method[] methods, Class<? extends Annotation> annotation) {
