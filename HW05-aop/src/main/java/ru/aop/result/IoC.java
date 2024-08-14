@@ -16,11 +16,13 @@ import static java.util.Objects.nonNull;
 class IoC {
     private static final Logger logger = LoggerFactory.getLogger(IoC.class);
 
+    private static final List<List<String>> methods = getMethodsByAnnotation(Log.class);
+
     private IoC() {
     }
 
-    static TestLoggingInterface createMyClass() {
-        InvocationHandler handler = new CustomInvocationHandler(new TestLoggingImpl());
+    static TestLoggingInterface createMyClass(TestLoggingInterface testLoggingClass) {
+        InvocationHandler handler = new CustomInvocationHandler(testLoggingClass);
         return (TestLoggingInterface) Proxy.newProxyInstance(
                 IoC.class.getClassLoader(), new Class<?>[]{TestLoggingInterface.class}, handler);
     }
@@ -47,24 +49,31 @@ class IoC {
         }
     }
 
-    private static List<Method> getMethodsByAnnotation(Class<? extends Annotation> annotation)
-            throws ClassNotFoundException {
-        Class<?> clazz = Class.forName("ru.aop.result.TestLoggingImpl");
+    private static boolean isExistMethod(Method method) {
+        return methods.contains(getListParameterNamesByMethod(method));
+    }
+
+    private static List<List<String>> getMethodsByAnnotation(Class<? extends Annotation> annotation) {
+        Class<?> clazz;
+        try {
+            clazz = Class.forName(TestLoggingImpl.class.getName());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Class not found");
+        }
         Method[] methods = clazz.getMethods();
-        List<Method> result = new ArrayList<>();
+        List<List<String>> result = new ArrayList<>();
         for (Method method : methods) {
             if (nonNull(method.getAnnotation(annotation))) {
-                result.add(method);
+                List<String> list = getListParameterNamesByMethod(method);
+                result.add(list);
             }
         }
         return result;
     }
 
-    private static boolean isExistMethod(Method method) throws ClassNotFoundException {
-        return getMethodsByAnnotation(Log.class)
-                .stream()
-                .filter(m -> m.getName().equals(method.getName()))
-                .filter(m -> m.getParameterCount() == method.getParameterCount())
-                .anyMatch(m -> Arrays.equals(method.getParameterTypes(), m.getParameterTypes()));
+    private static List<String> getListParameterNamesByMethod(Method method) {
+        return Arrays.stream(method.getParameters())
+                .map(m -> m.getParameterizedType().getTypeName())
+                .toList();
     }
 }
