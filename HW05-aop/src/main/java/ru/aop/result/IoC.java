@@ -59,7 +59,7 @@ class IoC {
         private MethodDTO getCurrentMethodDTO(Method method) {
             return MethodDTO.builder()
                     .name(method.getName())
-                    .parametersName(method.getParameterTypes())
+                    .parameters(method.getParameterTypes())
                     .build();
         }
 

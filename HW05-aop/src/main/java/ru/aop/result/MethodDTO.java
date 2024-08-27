@@ -9,5 +9,5 @@ public class MethodDTO {
 
     private String name;
 
-    private Class<?>[] parametersName;
+    private Class<?>[] parameters;
 }
