@@ -1,17 +1,9 @@
 package ru.solid.result;
 
-import java.util.Map;
+public interface ATM {
+    void putMoneyIntoAccount(Banknote banknote, int count);
 
-public class ATM {
-    public int getAllMoney(Cell cell) {
-        return cell.getAllMoney();
-    }
+    void withdrawMoneyFromAccount(int sum);
 
-    public void putMoneyIntoAccount(Cell cell, Map<Integer, Integer> input) {
-        cell.putMoneyToCell(input);
-    }
-
-    public void withdrawMoneyFromAccount(Cell cell, Map<Integer, Integer> input) {
-        cell.withdrawMoneyFromCell(input);
-    }
+    int getAllMoney();
 }
