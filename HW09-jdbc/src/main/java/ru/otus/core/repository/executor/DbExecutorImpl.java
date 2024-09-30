@@ -1,7 +1,6 @@
-package ru.otus.jdbc.core.repository.executor;
+package ru.otus.core.repository.executor;
 
-
-import ru.otus.jdbc.core.sessionmanager.DataBaseOperationException;
+import ru.otus.core.sessionmanager.DataBaseOperationException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,8 +29,7 @@ public class DbExecutorImpl implements DbExecutor {
     }
 
     @Override
-    public <T> Optional<T> executeSelect(
-            Connection connection, String sql, List<Object> params, Function<ResultSet, T> rsHandler) {
+    public <T> Optional<T> executeSelect(Connection connection, String sql, List<Object> params, Function<ResultSet, T> rsHandler) {
         try (var pst = connection.prepareStatement(sql)) {
             for (var idx = 0; idx < params.size(); idx++) {
                 pst.setObject(idx + 1, params.get(idx));

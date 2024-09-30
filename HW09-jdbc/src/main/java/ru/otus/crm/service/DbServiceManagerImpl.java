@@ -1,17 +1,15 @@
-package ru.otus.jdbc.crm.service;
+package ru.otus.crm.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.otus.jdbc.core.repository.DataTemplate;
-import ru.otus.jdbc.core.sessionmanager.TransactionRunner;
-import ru.otus.jdbc.crm.model.Manager;
+import lombok.extern.slf4j.Slf4j;
+import ru.otus.core.repository.DataTemplate;
+import ru.otus.core.sessionmanager.TransactionRunner;
+import ru.otus.crm.model.Manager;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class DbServiceManagerImpl implements DBServiceManager {
-    private static final Logger log = LoggerFactory.getLogger(DbServiceManagerImpl.class);
-
     private final DataTemplate<Manager> managerDataTemplate;
     private final TransactionRunner transactionRunner;
 

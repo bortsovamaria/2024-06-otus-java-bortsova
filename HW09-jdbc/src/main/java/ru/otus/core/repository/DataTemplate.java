@@ -1,4 +1,4 @@
-package ru.otus.jdbc.core.repository;
+package ru.otus.core.repository;
 
 import java.sql.Connection;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.otus.jdbc.core.repository.executor;
+package ru.otus.core.repository.executor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,6 +10,5 @@ public interface DbExecutor {
 
     long executeStatement(Connection connection, String sql, List<Object> params);
 
-    <T> Optional<T> executeSelect(
-            Connection connection, String sql, List<Object> params, Function<ResultSet, T> rsHandler);
+    <T> Optional<T> executeSelect(Connection connection, String sql, List<Object> params, Function<ResultSet, T> rsHandler) ;
 }

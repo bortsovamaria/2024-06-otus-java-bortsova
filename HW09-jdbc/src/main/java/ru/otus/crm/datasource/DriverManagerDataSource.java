@@ -1,4 +1,4 @@
-package ru.otus.jdbc.crm.datasource;
+package ru.otus.crm.datasource;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -34,6 +34,7 @@ public class DriverManagerDataSource implements DataSource {
     @Override
     public void setLogWriter(PrintWriter out) {
         throw new UnsupportedOperationException();
+
     }
 
     @Override
@@ -64,9 +65,9 @@ public class DriverManagerDataSource implements DataSource {
     private void createConnectionPool(String url, String user, String pwd) {
         var config = new HikariConfig();
         config.setJdbcUrl(url);
-        config.setConnectionTimeout(3000); // ms
-        config.setIdleTimeout(60000); // ms
-        config.setMaxLifetime(600000); // ms
+        config.setConnectionTimeout(3000); //ms
+        config.setIdleTimeout(60000); //ms
+        config.setMaxLifetime(600000);//ms
         config.setAutoCommit(false);
         config.setMinimumIdle(5);
         config.setMaximumPoolSize(10);
