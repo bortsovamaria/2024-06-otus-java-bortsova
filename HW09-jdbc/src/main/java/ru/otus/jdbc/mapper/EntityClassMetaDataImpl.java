@@ -25,7 +25,6 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
 
     @Override
     public Constructor<T> getConstructor() {
-
         try {
             return clazz.getConstructor();
         } catch (NoSuchMethodException e) {
@@ -35,20 +34,17 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
 
     @Override
     public Field getIdField() {
-
         if (idField == null) {
             for (Field field : clazz.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Id.class))
                     idField = field;
             }
         }
-
         return idField;
     }
 
     @Override
     public List<Field> getAllFields() {
-
         if (allFieldsList == null)
             allFieldsList = Arrays.stream(clazz.getDeclaredFields()).toList();
 
@@ -57,7 +53,6 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
 
     @Override
     public List<Field> getFieldsWithoutId() {
-
         if (fieldList == null)
             fieldList = Arrays.stream(clazz.getDeclaredFields()).filter(f -> !f.isAnnotationPresent(Id.class)).collect(Collectors.toList());
 

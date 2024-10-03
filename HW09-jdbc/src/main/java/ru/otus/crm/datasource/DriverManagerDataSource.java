@@ -34,7 +34,6 @@ public class DriverManagerDataSource implements DataSource {
     @Override
     public void setLogWriter(PrintWriter out) {
         throw new UnsupportedOperationException();
-
     }
 
     @Override

@@ -55,29 +55,22 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
         Optional<List<T>> listOptional = dbExecutor.executeSelect(connection, entitySQLMetaData.getSelectAllSql(), Collections.emptyList(), rs -> {
             try {
                 List<T> entityList = new ArrayList<>();
-
                 while (rs.next()) {
-
                     T entity = entityClassMetaData.getConstructor().newInstance();
-
                     for (Field field : entityClassMetaData.getAllFields()) {
                         field.setAccessible(true);
                         field.set(entity, rs.getObject(field.getName()));
                         field.setAccessible(false);
                     }
-
                     entityList.add(entity);
                 }
-
                 return entityList;
-
             } catch (SQLException e) {
                 throw new DataTemplateException(e);
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         });
-
         return listOptional.orElse(Collections.emptyList());
     }
 
@@ -91,7 +84,6 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
                 field.setAccessible(false);
             }
             return dbExecutor.executeStatement(connection, entitySQLMetaData.getInsertSql(), params);
-
         } catch (Exception exception) {
             throw new DataTemplateException(exception);
         }
@@ -106,14 +98,12 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
                 params.add(field.get(object));
                 field.setAccessible(false);
             }
-
             Field idField = entityClassMetaData.getIdField();
             idField.setAccessible(true);
             params.add(idField.get(object));
             idField.setAccessible(false);
 
             dbExecutor.executeStatement(connection, entitySQLMetaData.getUpdateSql(), params);
-
         } catch (Exception exception) {
             throw new DataTemplateException(exception);
         }
